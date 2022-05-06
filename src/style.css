@@ -124,3 +124,11 @@ ul li {
 .task-cont p {
   width: 80%;
 }
+
+/* stylelint-disable-next-line selector-list-comma-newline-after */
+.fa-regular, .far {
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400;
+  margin-right: 10px;
+}
