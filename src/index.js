@@ -45,7 +45,7 @@ function renderTodos() {
     li.innerHTML = `
     <div class="task-cont">
     <i class= "fa-regular ${checked}" id="${index}"></i>
-    <p class="para">${item.name}</p> 
+    <p id="${index}" class="para">${item.name}</p> 
     <button id="${index}"  class="delete-button">  </button>    
     </div>
 
@@ -94,8 +94,6 @@ todoItemsList.addEventListener('click', (event) => {
 
 /*const checkedBox = document.querySelectorAll(".checked");*/
 
-
-
 document.addEventListener('click', (box) => {
   if(box.target.classList.contains("clear")) {
 
@@ -108,8 +106,7 @@ if(box.target.classList.contains("fa-regular")){
   let index = box.target.id;
   todos[index].completed = !todos[index].completed;
   addToLocalStorage(todos);
-
-  }
+}
 
   if(box.target.classList.contains("delete-button")){
     let index = parseInt(box.target.id);
@@ -117,8 +114,21 @@ if(box.target.classList.contains("fa-regular")){
   }
 
   if(box.target.classList.contains("para")){
-    const editInputs = document.querySelector(".para");
-    editInputs.setAttribute("contenteditable",true);
+    let editInputs = document.querySelectorAll(".para");
+    editInputs.forEach((task) => {
+      task.setAttribute("contenteditable",true);
+      task.addEventListener("keydown",(e)=>{
+        if(e.keyCode === 13) {
+          e.preventDefault();
+          const newName = task.innerHTML;
+          let index = parseInt(box.target.id);
+          todos[index].name = newName;
+          addToLocalStorage(todos);
+        }
+      })
+    });
+   
+    
   }
 } )
 
