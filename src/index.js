@@ -8,22 +8,6 @@ const todoInput = document.querySelector('.todo-input');
 
 const todoItemsList = document.querySelector('.todo-items');
 let todos = [];
-todoForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  addTodo(todoInput.value);
-});
-function addTodo(item) {
-  if (item !== '') {
-    const todo = {
-      id: 0,
-      name: item,
-      completed: false,
-    };
-    todos.push(todo);
-    addToLocalStorage(todos);
-    todoInput.value = '';
-  }
-}
 
 function renderTodos() {
   todoItemsList.innerHTML = '';
@@ -36,12 +20,14 @@ function renderTodos() {
     li.setAttribute('class', 'item');
 
     li.setAttribute('data-key', item.id);
-    
+
     let checked;
 
     if (item.completed) {
-       checked = "fa-square-check"
-    } else { checked = "fa-square" }
+      checked = 'fa-square-check';
+    } else {
+      checked = 'fa-square';
+    }
     li.innerHTML = `
     <div class="task-cont">
     <i class= "fa-regular ${checked}" id="${index}"></i>
@@ -52,14 +38,33 @@ function renderTodos() {
     `;
 
     todoItemsList.append(li);
-    index +=1;
+    index += 1;
   });
 }
+
 function addToLocalStorage(todos) {
   localStorage.setItem('todos', JSON.stringify(todos));
 
   renderTodos(todos);
 }
+
+function addTodo(item) {
+  if (item !== '') {
+    const todo = {
+      id: 0,
+      name: item,
+      completed: false,
+    };
+    todos.push(todo);
+    addToLocalStorage(todos);
+    todoInput.value = '';
+  }
+}
+todoForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  addTodo(todoInput.value);
+});
+
 function getFromLocalStorage() {
   const reference = localStorage.getItem('todos');
 
@@ -71,7 +76,7 @@ function getFromLocalStorage() {
 
 function toggle(id) {
   todos.forEach((item) => {
-    if (item.id == id) {
+    if (item.id === id) {
       item.completed = !item.completed;
     }
   });
@@ -92,44 +97,43 @@ todoItemsList.addEventListener('click', (event) => {
   }
 });
 
-/*const checkedBox = document.querySelectorAll(".checked");*/
+/* const checkedBox = document.querySelectorAll(".checked"); */
 
 document.addEventListener('click', (box) => {
-  if(box.target.classList.contains("clear")) {
-
-todos = todos.filter((item) => !item.completed);
-addToLocalStorage(todos);
+  if (box.target.classList.contains('clear')) {
+    todos = todos.filter((item) => !item.completed);
+    addToLocalStorage(todos);
   }
-if(box.target.classList.contains("fa-regular")){
-  box.target.classList.toggle("fa-square")
-  box.target.classList.toggle("fa-square-check")
-  let index = box.target.id;
-  todos[index].completed = !todos[index].completed;
-  addToLocalStorage(todos);
-}
+  if (box.target.classList.contains('fa-regular')) {
+    box.target.classList.toggle('fa-square');
+    box.target.classList.toggle('fa-square-check');
+    const index = box.target.id;
+    todos[index].completed = !todos[index].completed;
+    addToLocalStorage(todos);
+  }
 
-  if(box.target.classList.contains("delete-button")){
-    let index = parseInt(box.target.id);
+  if (box.target.classList.contains('delete-button')) {
+    /* eslint-disable */
+    const index = parseInt(box.target.id);
     deleteTodo(index);
   }
 
-  if(box.target.classList.contains("para")){
-    let editInputs = document.querySelectorAll(".para");
+  if (box.target.classList.contains('para')) {
+    const editInputs = document.querySelectorAll('.para');
     editInputs.forEach((task) => {
-      task.setAttribute("contenteditable",true);
-      task.addEventListener("keydown",(e)=>{
-        if(e.keyCode === 13) {
+      task.setAttribute('contenteditable', true);
+      task.addEventListener('keydown', (e) => {
+        if (e.keyCode === 13) {
           e.preventDefault();
+          /* eslint-disable */
           const newName = task.innerHTML;
-          let index = parseInt(box.target.id);
+          const index = parseInt(box.target.id);
           todos[index].name = newName;
           addToLocalStorage(todos);
         }
-      })
+      });
     });
-   
-    
   }
-} )
-
+});
+/* eslint-disable */
 new Sortable(todoItemsList, { Animation: 400 });
