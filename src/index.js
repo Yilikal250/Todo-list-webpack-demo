@@ -1,6 +1,7 @@
 /** @format */
 
 import './style.css';
+import clear from './modules/clear.js';
 
 const todoForm = document.querySelector('.todo-form');
 
@@ -14,7 +15,6 @@ function renderTodos() {
   let index = 0;
   todos.forEach((item) => {
     item.id = index;
-    // const checked = item.completed ? 'checked' : null;
     const li = document.createElement('li');
 
     li.setAttribute('class', 'item');
@@ -43,11 +43,9 @@ function renderTodos() {
 }
 
 function addToLocalStorage(todos) {
-  localStorage.setItem('todos', JSON.stringify(todos));
-
   renderTodos(todos);
+  localStorage.setItem('todos', JSON.stringify(todos));
 }
-
 function addTodo(item) {
   if (item !== '') {
     const todo = {
@@ -101,7 +99,7 @@ todoItemsList.addEventListener('click', (event) => {
 
 document.addEventListener('click', (box) => {
   if (box.target.classList.contains('clear')) {
-    todos = todos.filter((item) => !item.completed);
+    todos = clear();
     addToLocalStorage(todos);
   }
   if (box.target.classList.contains('fa-regular')) {
@@ -116,6 +114,7 @@ document.addEventListener('click', (box) => {
     /* eslint-disable */
     const index = parseInt(box.target.id);
     deleteTodo(index);
+    renderTodos(todos);
   }
 
   if (box.target.classList.contains('para')) {
