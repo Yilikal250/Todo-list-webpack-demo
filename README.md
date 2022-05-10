@@ -30,7 +30,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## Live Demo
 
-[To do List Live Demo Link ](https://yilikal250.github.io/webpack-demo/)
+[To do List Live Demo Link ](https://yilikal250.github.io/webpack-demo/dist/)
 
 
 ## Setup
