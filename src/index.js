@@ -124,9 +124,8 @@ document.addEventListener('click', (box) => {
       task.addEventListener('keydown', (e) => {
         if (e.keyCode === 13) {
           e.preventDefault();
-          /* eslint-disable */
           const newName = task.innerHTML;
-          const index = parseInt(box.target.id);
+          const index = parseInt(box.target.id,10);
           todos[index].name = newName;
           addToLocalStorage(todos);
         }
