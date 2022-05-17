@@ -2,6 +2,9 @@
 
 > To Do List
 
+# To-Do-List
+
+> This is a microverse project to make a simple To-Do-List website that displays a list of tasks and allows you to add and remove those tasks from that list.
 
 ## Built With
 
